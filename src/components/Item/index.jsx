@@ -2,22 +2,25 @@ import { useEffect, useState } from "react";
 
 
 function Item() {
-    const [users, setUsers] = useState([])
+    const [products, setProducts] = useState([])
         ;
 
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/users")
+        fetch("https://fakestoreapi.com/products")
             .then((response) => response.json())
-            .then((json) => setUsers(json));
+            .then((data) => setProducts(data));
     }, []);
-    console.log(users);
+    
 
-    return (<ul>{
-        users.map((user) => {
-            return <li>{user.name}</li>
-        })}
-    </ul>)
+    return (
+        <div>
+            {products.map((product) =>(<h5>{product.title}</h5>))} 
+        
+        </div>
+        
+    
+    );
 
 
 

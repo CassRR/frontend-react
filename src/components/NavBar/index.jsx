@@ -8,7 +8,6 @@ const NavBar = (props) => {
             <img src="../imagenes/greenGarden1.jpg" className={styles.navBar_imagen_logo} />
             <p onClick={() => props.handleClick("Home")} >Home</p>
             <p onClick={() => props.handleClick("catalogo")} >Catàlogo</p>
-            <p onClick={() => props.handleClick("Quiènes Somos")} >Quiènes Somos?</p>
             <p onClick={() => props.handleClick("Contacto")} >Contacto</p>
             <CartWidget />
             <p>8</p>

@@ -3,6 +3,8 @@ import NavBar from "./components/NavBar";
 import ItemListContainer from "./components/ItemListContainer";
 import axios from "axios";
 import Item from "./components/Item";
+import {Route, Routes} from "react-router-dom"
+import ProductList from "./components/ProductsList";
 
 
 function App() {
@@ -15,12 +17,15 @@ function App() {
 
   return (
     <div>
-      <NavBar handleClick={funcionClick} />
+       <NavBar handleClick={funcionClick} />
       <ItemListContainer text="Bienvenido a Green Garden" />
-      <Item />
+      <Routes>
+      <Route path="/productos"element={<ProductList products={products}/>}/>
+      </Routes>
 
 
     </div >
+
   );
 };
 
