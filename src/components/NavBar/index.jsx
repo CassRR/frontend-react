@@ -1,21 +1,18 @@
 import styles from "./navbar.module.scss";
 import CartWidget from "../CartWidget";
+import { Link } from "react-router-dom";
 
 
-const NavBar = (props) => {
+const NavBar = () => {
     return (
         <nav className={styles.container}>
-            <img src="../imagenes/greenGarden1.jpg" className={styles.navBar_imagen_logo} />
-            <p onClick={() => props.handleClick("Home")} >Home</p>
-            <p onClick={() => props.handleClick("catalogo")} >Catàlogo</p>
-            <p onClick={() => props.handleClick("Contacto")} >Contacto</p>
-            <CartWidget />
-            <p>8</p>
-
-
-
+        <Link to="/"><img src="../imagenes/greenGarden1.jpg" className={styles.navBar_imagen_logo} /></Link>
+         <Link to="/home" className={styles.alinearcart}> Home </Link>
+        <Link to="/categorias"className={styles.alinearcart}>Categorías de productos </Link>
+         <Link to= "/Cart"> <CartWidget /> </Link>
         </nav >
     );
 
 };
+
 export default NavBar

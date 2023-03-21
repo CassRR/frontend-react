@@ -1,28 +1,21 @@
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "./item.module.scss";
 
-
-function Item() {
-    const [products, setProducts] = useState([])
-        ;
-
-
-    useEffect(() => {
-        fetch("https://fakestoreapi.com/products")
-            .then((response) => response.json())
-            .then((data) => setProducts(data));
-    }, []);
+const Item=({product})=> {
+    return(
+    
+    <div className={styles.itemcontainer}>
+        <h4> <Link to={`/productos/${product.id}`}>{product.title}</Link></h4>
+        <img src={product.images[0]} alt={product.title}/>
+        <p>${product.price}</p>
+        <p><Link to={`/categorias/${product.category}`}>{product.category}</Link></p>
+       
+    </div>
     
 
-    return (
-        <div>
-            {products.map((product) =>(<h5>{product.title}</h5>))} 
-        
-        </div>
-        
-    
-    );
-
+    )
+  
 
 
 }
-export default Item
+export default Item;
