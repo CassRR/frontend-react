@@ -1,26 +1,33 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { collection} from "firebase/firestore";
+import db from "../db/firebase-config";
+
 
 
 const ProductItem=()=> {
      const{id}=useParams();
-    const [product, setProduct] = useState(null);
+    const [items, setItems] = useState([]);
+    const itemsRef=collection(db, "items");
+
     
-        const getProduct=async()=> {
+    
+        const getItems=async()=> {
             try{
-            const result = await fetch(`https://dummyjson.com/products/${id}`)
-             const data=await result.json()
-             setProduct(data);
+            const getItems = await getDocs(itemsRef);
+             const itemsCollection =await getDocs(itemsRef);
+             const items= itemsCollection.docs.map((doc)=>({...doc.data(),id:doc.id}));
+             
             }catch(error){
                 console.log(error)
              }
         }
         useEffect(() => {
-            getProduct()
+            getItems()
         }, []);
-        console.log(product)
+        console.log(items)
     
-    if (product == null){
+    if (items == null){
         return (<div>Producto no encontrado</div>)
     } else {
         return (
