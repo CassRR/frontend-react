@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ItemListcontainer from "../ItemListContainer";
 import db from "../../../db/firebase-config";
+import {collection, getDocs} from "firebase/firestore";
 
 
 
@@ -11,9 +12,10 @@ const Categorias=()=> {
     
         const getCategory=async()=> {
             try{
-            const result = await fetch(`https://dummyjson.com/products/categories`)
-             const data=await result.json()
-             setCategories(data);
+                 const itemsRef = collection(db, "categories")
+            const getItems = await getDocs(itemsRef);
+            const items = getItems.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            setCategories(items);
             }catch(error){
                 console.log(error)
              }
@@ -26,7 +28,7 @@ const Categorias=()=> {
        
         return   (
             <ul>              
-                {categories.map((category) =><Link to={`/categorias/${category}`}><li key={category}>{category}</li></Link>)} 
+                {categories.map((category) =><Link to={`/categorias/${category.title}`}><li key={category.id}>{category.title}</li></Link>)} 
             </ul>
         );
     
