@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { collection, getDoc,doc } from "firebase/firestore";
+import {  getDoc,doc } from "firebase/firestore";
 import db from "../../../db/firebase-config";
-import { InsertEmoticonOutlined } from "@mui/icons-material";
 import ItemCount from "../ItemCount";
+import{CartContext}from"../../context/CartContext";
+import styles from "./ProductItem.module.scss";
+import {useContext} from 'react'
 
 
 const ProductItem = () => {
- debugger;   const { id } = useParams();
+    const { id } = useParams();
     const [product, setProduct] = useState(null);
-
+    const{addProduct} =useContext(CartContext);
+    const[goToCart, setgoToCart] =useState(false)
+    
+    
+    const onAdd =(quantity) =>{
+        setgoToCart(true);
+        addProduct(product,quantity);
+    }
     const getProduct = async () => {
 
         const docRef = doc(db, "items", id)
@@ -17,7 +26,7 @@ const ProductItem = () => {
         if (docSnap.exists()) {
             setProduct(docSnap.data())
         } else {
-            console.log("The document is not avaible")
+            console.log("The product is not avaible")
         }
     }
 
@@ -33,18 +42,20 @@ const ProductItem = () => {
 
     return (
 
-        <div>
-            <div>
+       
+            <div className={styles.itemcontainer}>
+                
                 <h4 >{product.title}</h4>
-                <p>{product.price}</p>
                 <p>{product.category}</p>
                 <p>{product.description}</p>
                 <p>${product.price}</p>
-                <img src={product.images[0]} alt={product.title} />
+                <img className={styles.image}src={product.images[0]} alt={product.title} />
+                    <ItemCount onAdd={onAdd}/>
+                 
             </div>
 
-            <ItemCount />
-        </div>
+           
+      
     )
 
 
