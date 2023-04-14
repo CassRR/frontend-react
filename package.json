@@ -9,8 +9,6 @@
     "preview": "vite preview",
     "seedProducts": "node ./db/seed-products.js",
     "seedCategories": "node ./db/seed-categories.js"
-   
-    
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
